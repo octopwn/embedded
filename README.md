@@ -46,10 +46,22 @@ Should anything go wrong, you can connect to WLAN and log in to this service wit
 - pass: octopwn
 
 ### SMB
-Reachable from all interfaces
+Reachable from all interfaces. No authentication is required on any of the shares.
+#### SMB Share - RO
+This is a read-only share, you can only upload files to it via SSH. The main purpose of this share is to store the reverse proxy client so in th event the AV might try to remove it the delete operation will fail.
+#### SMB Share - Public
+This is a read and writeable share backed by the SD card. Use this to transfer files in and out of the target.
+#### SMB Share - Update
+This is a read and writeable share backed by the SD card. Conents of this share will be checked after each reboot of the device and will update certain parts of the system. More on this later.
 
 ### OctoPwn
-Web service on http://10.0.0.1:8700
+#### Web service
+http://10.0.0.1:80  
+To connect to the server, you need to open the url, then select "REMOTE". By default thee is no authentication, so select "NONE" for authentication type.
+#### Server
+The octopwn server will be listening on ws://10.0.0.1:8181 without authentication.
+#### Reverse client handler
+For the reverse connection client a websockets server will be listening on ws://10.0.0.1:8700
 
 ### Duckytyper
-This service is by default only listens on localhost 1212/tcp
+This service is by default only listens on localhost 1212/tcp. Used by OctoPwn to auto-type commands via the virtual keyboard.
